@@ -1,0 +1,15 @@
+name: 'Security check'
+
+on: push
+
+jobs:
+  security-check:
+    name: 'Security check'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Static security check with Checkov
+        uses: bridgecrewio/checkov-action@master

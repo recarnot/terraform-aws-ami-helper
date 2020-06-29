@@ -1,0 +1,30 @@
+name: 'Plan check'
+
+on: push
+
+jobs:
+  terraform-plan:
+    name: 'Terraform plan'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: integration
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform CLI
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform init
+        run: terraform init -no-color
+
+      - name: Terraform validate
+        run: terraform validate -no-color
+
+      - name: Terraform plan
+        run: terraform plan -var="access_key=${{ secrets.ACCESS_KEY }}" -var="secret_key=${{ secrets.SECRET_KEY }}" -no-color
+
+      - name: Terraform apply
+        run: terraform apply -var="access_key=${{ secrets.ACCESS_KEY }}" -var="secret_key=${{ secrets.SECRET_KEY }}" -no-color
