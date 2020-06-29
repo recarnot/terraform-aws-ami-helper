@@ -1,11 +1,11 @@
 # Module : terraform-aws-ami-helper
 
 <p align="left">
-<a href="https://github.com/recarnot/terraform-aws-convention/"><img alt="Terraform version" src="https://img.shields.io/badge/Terraform-%3E%3D0.12-orange" /></a>
-<a href="https://registry.terraform.io/modules/recarnot/convention/aws/"><img alt="Terraform registry" src="https://img.shields.io/github/v/release/recarnot/terraform-aws-convention" /></a>
-<a href="https://github.com/recarnot/terraform-aws-convention/actions"><img alt="Plan check" src="https://github.com/recarnot/terraform-aws-convention/workflows/Plan%20check/badge.svg" /></a>
-<a href="https://github.com/recarnot/terraform-aws-convention/actions"><img alt="Security check" src="https://github.com/recarnot/terraform-aws-convention/workflows/Security%20check/badge.svg" /></a>
-<a href="https://registry.terraform.io/modules/recarnot/convention/aws/"><img alt="Terraform registry" src="https://img.shields.io/badge/Terraform-registry-blue" /></a>
+<a href="https://github.com/recarnot/terraform-aws-ami-helper/"><img alt="Terraform version" src="https://img.shields.io/badge/Terraform-%3E%3D0.12-orange" /></a>
+<a href="https://registry.terraform.io/modules/recarnot/ami-helper/aws/"><img alt="Terraform registry" src="https://img.shields.io/github/v/release/recarnot/terraform-aws-ami-helper" /></a>
+<a href="https://github.com/recarnot/terraform-aws-ami-helper/actions"><img alt="Plan check" src="https://github.com/recarnot/terraform-aws-ami-helper/workflows/Plan%20check/badge.svg" /></a>
+<a href="https://github.com/recarnot/terraform-aws-ami-helper/actions"><img alt="Security check" src="https://github.com/recarnot/terraform-aws-ami-helper/workflows/Security%20check/badge.svg" /></a>
+<a href="https://registry.terraform.io/modules/recarnot/ami-helper/aws/"><img alt="Terraform registry" src="https://img.shields.io/badge/Terraform-registry-blue" /></a>
 </p>
 This [**Terraform**](https://www.terraform.io/) module is just an helper to easily find some useful  **[AWS](https://aws.amazon.com/fr/console/)** AMI id.
 
@@ -24,7 +24,7 @@ You can use this module with Terraform **OSS** or Terraform **Cloud**/**Enterpri
 ```typescript
 module "helper" {
   source  = "recarnot/ami-helper/aws"
-  os = module.helper.AMAZON_LINUX_2
+  os      = module.helper.AMAZON_LINUX_2
 }
 
 output "id" {
@@ -32,7 +32,9 @@ output "id" {
 }
 ```
 
-ds
+
+
+#### Or use filters (*this allow to skip `data.aws_ami` call in module*)
 
 ```typescript
 module "helper" {
@@ -59,14 +61,23 @@ data "aws_ami" "all" {
 
 
 
+## Optional inputs
+
+| Name | Description                           | Type   | Default |
+| ---- | ------------------------------------- | ------ | ------- |
+| os   | To retrieve this passed-in OS AMI'id. | string | ""      |
+
+
+
 ## Outputs
 
 These properties are exposed as module output.
 
-| Name         | Description                   | Type         |
-| ------------ | ----------------------------- | ------------ |
-| supported_os | List of supported OS          | list(string) |
-| filters      | Map of AMI filters properties | map(string)  |
+| Name         | Description                                   | Type         |
+| ------------ | --------------------------------------------- | ------------ |
+| supported_os | List of supported OS                          | list(string) |
+| filters      | Map of AMI filters properties                 | map(string)  |
+| ami_id       | Returns `data.aws_ami` ID if `var.os` is set. |              |
 
 
 
