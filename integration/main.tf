@@ -27,6 +27,7 @@ data "aws_ami" "all" {
   }
 }
 
+
 output "amis" {
   value = values(data.aws_ami.all)[*].name
 }
